@@ -25,6 +25,14 @@ public class TesteBrainiac{
 		System.out.println(malha.getPeso(0, 1));
 		System.out.println(malha.getPeso(1, 0));
 		System.out.println(malha.getPeso(1, 1));
+
+		malha.inicializar();
+		malha.printPesos();
+
+		System.out.println(malha.getPeso(0, 0));
+		System.out.println(malha.getPeso(0, 1));
+		System.out.println(malha.getPeso(1, 0));
+		System.out.println(malha.getPeso(1, 1));
 	}
 
 	/* Teste Neurônios */

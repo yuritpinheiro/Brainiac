@@ -21,9 +21,9 @@ public class Rede {
 			camadaOculta = new Camada(neuronioPorCamada[i], Camada.CAMADA_OCULTA));
 			camadasOcultas.add(camadaOculta);
 		}
-		malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
-		for (int i = 0; i < malhaPesos.length(); ) {
-
+		malhaPesos = new MalhaPesos[quantidadeCamadas + 1];
+		for (int i = 0; i < malhaPesos.length; i++) {
+			malhaPesos[i].inicializar();
 		}
 	}
 
