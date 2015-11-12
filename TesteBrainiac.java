@@ -1,13 +1,31 @@
 
 import Brainiac.FuncaoAtivacao;
 import Brainiac.Neuronio;
+import Brainiac.MalhaPesos;
 
 public class TesteBrainiac{
 	public static void main(String args[]){
 		// testeAtivacao();
 		// testeNeuronio();
+		testeMalhaPesos();
 	}
 
+	/* Teste MalhaPesos */
+	public static void testeMalhaPesos(){
+		MalhaPesos malha = new MalhaPesos(2, 2);
+
+		malha.setPeso(0, 0, 1);
+		malha.setPeso(0, 1, 2);
+		malha.setPeso(1, 0, 3);
+		malha.setPeso(1, 1, 4);
+
+		malha.printPesos();
+
+		System.out.println(malha.getPeso(0, 0));
+		System.out.println(malha.getPeso(0, 1));
+		System.out.println(malha.getPeso(1, 0));
+		System.out.println(malha.getPeso(1, 1));
+	}
 
 	/* Teste Neurônios */
 	public static void testeNeuronio(){
