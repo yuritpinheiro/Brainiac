@@ -9,10 +9,15 @@ public class Rede {
 	private Camada camadaSaida;
 	private ArrayList<Camada> camadasOcultas;
 	private MalhaPesos malhaPesos[];
+	private ConjuntoDados conjuntoTreinameto;
+	private ConjuntoDados conjuntoValidacao;
 
 	public Rede();
 
-	public Rede(int quantidadeEntradas, int quantidadeSaidas, int quantidadeCamadas, int neuronioPorCamada[]){
+	public Rede(int quantidadeEntradas,
+				int quantidadeSaidas,
+				int quantidadeCamadas,
+				int neuronioPorCamada[]){
 		this.quantidadeCamadas = quantidadeCamadas;
 		this.camadaEntrada = new Camada(quantidadeEntradas, Camada.CAMADA_ENTRADA);
 		this.camadaSaida = new Camada(quantidadeSaidas, Camada.CAMADA_SAIDA));
@@ -39,8 +44,15 @@ public class Rede {
 		/* Backpropagation */
 	}
 
-	public void treinamento(conjuntoTreinameto, conjuntoValidacao, int epoca, double erro){
+	public void treinamento(ConjuntoDados conjuntoTreinameto,
+	 						ConjuntoDados conjuntoValidacao,
+							int epoca,
+							double erro){
 		/* Treinamento */
+	}
+
+	public void carregarDados(){
+		
 	}
 
 	/* Gets e Sets */
