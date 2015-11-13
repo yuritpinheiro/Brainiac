@@ -4,16 +4,37 @@ import Brainiac.Neuronio;
 import Brainiac.MalhaPesos;
 import Brainiac.ConjuntoDados;
 import Brainiac.Amostra;
+import Brainiac.Rede;
 
 public class TesteBrainiac{
 	public static void main(String args[]){
 		// testeAtivacao();
 		// testeNeuronio();
 		// testeMalhaPesos();
-		//testeConjuntoDados();
+		// testeConjuntoDados(); // Amostra
 	}
 
-	/* Teste ConjuntoDados */
+	/* Teste Rede */
+	public static void testeRede(){
+
+	}
+
+	/* Teste Propagação */
+	public static void testePropagação(){
+
+	}
+
+	/* Teste Treinamento */
+	public static void testeTreinamento(){
+
+	}
+
+	/* Teste RetroPropagação */
+	public static void testeRetroPropagação(){
+
+	}
+
+	/* Teste ConjuntoDados e Amostra */
 	public static void testeConjuntoDados(){
 		ConjuntoDados conjunto = new ConjuntoDados();
 

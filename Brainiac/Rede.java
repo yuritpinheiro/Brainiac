@@ -72,7 +72,7 @@ public class Rede {
 	}
 
 	public void carregarRede(){
-
+		/* Carrega Rede */
 	}
 
 	/* Gets e Sets */

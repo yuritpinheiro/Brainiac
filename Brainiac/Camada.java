@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Camada {
 	private ArrayList<Neuronio> neuronios;
+	private int quantidadeNeuronios;
 
 	public static final int ENTRADA = 0;
 	public static final int OCULTA = 1;
@@ -13,19 +14,20 @@ public class Camada {
 	public Camada(){}
 
 	public Camada(int quantidadeNeuronios, int tipoCamada){
+		this.quantidadeNeuronios = quantidadeNeuronios;
 		Neuronio n;
 		for (int i = 0; i < quantidadeNeuronios; i++) {
 			n = new Neuronio(tipoCamada);
-			neuronios.add(n);
+			this.neuronios.add(n);
 		}
 	}
 
 	public int getTamanhaCamada(){
-		return neuronios.size();
+		return this.quantidadeNeuronios;
 	}
 
 	public ArrayList<Neuronio> getNeuronios(){
-		return neuronios;
+		return this.neuronios;
 	}
 
 	public void setNeuronios(ArrayList<Neuronio> neuronios){
