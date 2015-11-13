@@ -9,25 +9,54 @@ import java.io.BufferedReader;
 
 public class ConjuntoDados{
 	private ArrayList<Amostra> amostras;
+	private int contadorDados;
+
+	public ConjuntoDados(){
+		this.amostras = new ArrayList<Amostra>();
+		this.contadorDados = 0;
+	}
 
 	public void carregarDados(String caminho, int quantidadeEntradas){
-		File fonte = new File(caminho);
-		if (!fonte.exist() || !fonte.isFile()){
-			return;
+		try{
+			File fonte = new File(caminho);
+			if (!fonte.exists() || !fonte.isFile()){
+				return;
+			}
+
+			FileReader leitor = new FileReader(fonte);
+			BufferedReader bufferLeitura = new BufferedReader(leitor);
+
+			String linha = null, dados[];
+			Amostra amostra;
+			while(bufferLeitura.ready()){
+				linha = bufferLeitura.readLine();
+				dados = linha.split("\t");
+				amostra = new Amostra(quantidadeEntradas);
+				for (int i = 0; i < quantidadeEntradas; i++){
+					amostra.setEntrada(i, Double.valueOf(dados[i]));
+				}
+				amostras.add(amostra);
+			}
+
+			bufferLeitura.close();
+			leitor.close();
+		} catch (Exception e){
+			System.out.println(e.getMessage());
 		}
-
-		FileReader leitor = new FileReader(fonte);
-		BufferedReader bufferLeitura = new BufferedReader(leitor);
-
-		String linha = null;
-		while((linha = bufferLeitura.readLine()){
-			// converter linha para amostra
-			amostras.add(amostra);
-		}
-
-		bufferLeitura.close();
-		leitor.close();
 	}
+
+	public Amostra proximaAmostra(){
+		return amostras.get(contadorDados++);
+	}
+
+	public void resetarContador(){
+		contadorDados = 0;
+	}
+
+	public boolean terminado(){
+		return (contadorDados < amostras.size());
+	}
+
 /* escrever em arquivo */
 /*
 	FileWriter escritor = new FileWriter(fonte);

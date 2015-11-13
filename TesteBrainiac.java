@@ -2,12 +2,31 @@
 import Brainiac.FuncaoAtivacao;
 import Brainiac.Neuronio;
 import Brainiac.MalhaPesos;
+import Brainiac.ConjuntoDados;
+import Brainiac.Amostra;
 
 public class TesteBrainiac{
 	public static void main(String args[]){
 		// testeAtivacao();
 		// testeNeuronio();
-		testeMalhaPesos();
+		// testeMalhaPesos();
+		//testeConjuntoDados();
+	}
+
+	/* Teste ConjuntoDados */
+	public static void testeConjuntoDados(){
+		ConjuntoDados conjunto = new ConjuntoDados();
+
+		conjunto.carregarDados("exemplo.conjunto", 4);
+
+		while(conjunto.terminado()){
+			Amostra amostra;
+			amostra = conjunto.proximaAmostra();
+			for (int i = 0; i < 4; i++) {
+				System.out.print(amostra.getEntrada(i) + " ");
+			}
+			System.out.print("\n");
+		}
 	}
 
 	/* Teste MalhaPesos */

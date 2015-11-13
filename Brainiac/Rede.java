@@ -3,6 +3,12 @@ package Brainiac;
 import Brainiac.Camada;
 import java.utils.ArrayList;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+
 public class Rede {
 	private int quantidadeCamadas;
 	private Camada camadaEntrada;
@@ -14,22 +20,25 @@ public class Rede {
 
 	public Rede();
 
-	public Rede(int quantidadeEntradas,
-				int quantidadeSaidas,
-				int quantidadeCamadas,
-				int neuronioPorCamada[]){
+	public Rede(int quantidadeCamadas,
+				int neuronioPorCamada[],
+				String conjuntoTreinameto,
+				String conjuntoValidacao){
 		this.quantidadeCamadas = quantidadeCamadas;
-		this.camadaEntrada = new Camada(quantidadeEntradas, Camada.CAMADA_ENTRADA);
-		this.camadaSaida = new Camada(quantidadeSaidas, Camada.CAMADA_SAIDA));
+		this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.CAMADA_ENTRADA);
+		this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.CAMADA_SAIDA));
 		Camada camadaOculta;
-		for (int i = 0; i < quantidadeCamadas; i++) {
+		for (int i = 0; i < quantidadeCamadas - 2 ; i++) {
 			camadaOculta = new Camada(neuronioPorCamada[i], Camada.CAMADA_OCULTA));
-			camadasOcultas.add(camadaOculta);
+			this.camadasOcultas.add(camadaOculta);
 		}
 		malhaPesos = new MalhaPesos[quantidadeCamadas + 1];
 		for (int i = 0; i < malhaPesos.length; i++) {
-			malhaPesos[i].inicializar();
+			this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1], neuronioPorCamada[i]);
+			this.malhaPesos[i].inicializar();
 		}
+		this.conjuntoTreinameto = new ConjuntoDados(conjuntoTreinameto, neuronioPorCamada[0]);
+		this.conjuntoValidacao = new ConjuntoDados(conjuntoValidacao, neuronioPorCamada[0]);
 	}
 
 	public double propagacao(ArrayList<double> entrada){
@@ -51,8 +60,19 @@ public class Rede {
 		/* Treinamento */
 	}
 
-	public void carregarDados(){
-		
+	public void salvarRede(){
+		/* escrever em arquivo */
+		/*
+			FileWriter escritor = new FileWriter(fonte);
+			PrintWriter saida = new PrintWriter(escritor, true);
+
+			saida.close();
+			escritor.close();
+		*/
+	}
+
+	public void carregarRede(){
+
 	}
 
 	/* Gets e Sets */
