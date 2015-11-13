@@ -1,7 +1,5 @@
 package Brainiac;
 
-import Brainiac.FuncaoAtivacao;
-
 public class Neuronio {
 	private int funcaoAtivacao;
 	private double saida_neuronio;

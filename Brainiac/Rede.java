@@ -1,7 +1,7 @@
 package Brainiac;
 
 import Brainiac.Camada;
-import java.utils.ArrayList;
+import java.util.ArrayList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,34 +18,37 @@ public class Rede {
 	private ConjuntoDados conjuntoTreinameto;
 	private ConjuntoDados conjuntoValidacao;
 
-	public Rede();
+	public Rede(){
+		/* Construtor vazio */
+	}
 
 	public Rede(int quantidadeCamadas,
 				int neuronioPorCamada[],
 				String conjuntoTreinameto,
 				String conjuntoValidacao){
 		this.quantidadeCamadas = quantidadeCamadas;
-		this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.CAMADA_ENTRADA);
-		this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.CAMADA_SAIDA));
+		this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.ENTRADA);
+		this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.SAIDA);
 		Camada camadaOculta;
 		for (int i = 0; i < quantidadeCamadas - 2 ; i++) {
-			camadaOculta = new Camada(neuronioPorCamada[i], Camada.CAMADA_OCULTA));
+			camadaOculta = new Camada(neuronioPorCamada[i], Camada.OCULTA);
 			this.camadasOcultas.add(camadaOculta);
 		}
-		malhaPesos = new MalhaPesos[quantidadeCamadas + 1];
+		malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
 		for (int i = 0; i < malhaPesos.length; i++) {
 			this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1], neuronioPorCamada[i]);
 			this.malhaPesos[i].inicializar();
 		}
-		this.conjuntoTreinameto = new ConjuntoDados(conjuntoTreinameto, neuronioPorCamada[0]);
-		this.conjuntoValidacao = new ConjuntoDados(conjuntoValidacao, neuronioPorCamada[0]);
+		this.conjuntoTreinameto = new ConjuntoDados();
+		this.conjuntoTreinameto.carregarDados(conjuntoTreinameto, neuronioPorCamada[0]);
+		this.conjuntoValidacao = new ConjuntoDados();
+		this.conjuntoValidacao.carregarDados(conjuntoValidacao, neuronioPorCamada[0]);
 	}
 
-	public double propagacao(ArrayList<double> entrada){
-		double resultado;
-
-		/* Propagação */
-
+	/* Propagação */
+	public double propagacao(Amostra entrada){
+		double resultado = 0;
+		
 		return resultado;
 	}
 
@@ -113,6 +116,6 @@ public class Rede {
 	}
 
 	public void setCamadaOculta(Camada camadaOculta,int i){
-		this.camadasOcultas.set(camadaOculta, i);
+		this.camadasOcultas.set(i, camadaOculta);
 	}
 }

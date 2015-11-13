@@ -1,6 +1,5 @@
 package Brainiac;
 
-import Brainiac.Neuronio;
 import java.util.ArrayList;
 
 public class Camada {
