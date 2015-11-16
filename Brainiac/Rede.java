@@ -49,7 +49,7 @@ public class Rede {
 	/* Propagação */
 	public double propagacao(Amostra entrada){
 		double resultado = 0;
-
+		
 		return resultado;
 	}
 

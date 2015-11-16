@@ -1,5 +1,6 @@
 #### TODO:
  - [x] Rodar exemplo XOR no octave para determinar pesos do exemplo
+ - [ ] Gerar conjunto de treinamento e validação
 
 ######Rede:
  - [ ] Implementar algoritmo de propagação;
@@ -9,6 +10,7 @@
  - [x] Inicializar camadas;
  - [x] Incorporar conjunto de treinamento e de validação;
  - [ ] Implementar salvamento e carregamento da rede;
+ - [ ] Erro de treinamento e validação por época
 
 ######Camada:
  - [ ] Definir camada de entrada diferente da camada de saida;
