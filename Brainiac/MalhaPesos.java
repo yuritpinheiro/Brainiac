@@ -25,6 +25,10 @@ public class MalhaPesos {
 		pesos[neuronioSeguinte * tamanhoCamadaSeguinte + neuronioAnterior] = peso;
 	}
 
+	public void setPesos(double pesos[]){
+		this.pesos = pesos;
+	}
+
 	public void inicializar(){
 		for (int i = 0; i < pesos.length; i++) {
 			pesos[i] = Math.random();

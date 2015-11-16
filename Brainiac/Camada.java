@@ -12,7 +12,7 @@ public class Camada {
 
 	public Camada(){}
 
-	System.out.print();ublic Camada(int quantidadeNeuronios, int tipoCamada, int funcaoAtivacao){
+	public Camada(int quantidadeNeuronios, int tipoCamada, int funcaoAtivacao){
 		this.quantidadeNeuronios = quantidadeNeuronios;
 		Neuronio n;
 		for (int i = 0; i < quantidadeNeuronios; i++) {
@@ -21,7 +21,7 @@ public class Camada {
 		}
 	}
 
-	public int getTamanhaCamada(){
+	public int getTamanhoCamada(){
 		return this.quantidadeNeuronios;
 	}
 
