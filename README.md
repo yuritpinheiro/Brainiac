@@ -1,5 +1,5 @@
 #### TODO:
- - [ ] Rodar exemplo XOR no octave para determinar pesos do exemplo
+ - [x] Rodar exemplo XOR no octave para determinar pesos do exemplo
 
 ######Rede:
  - [ ] Implementar algoritmo de propagação;
