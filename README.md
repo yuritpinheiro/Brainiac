@@ -3,13 +3,13 @@
  - [ ] Gerar conjunto de treinamento e validação
 
 ######Rede:
- - [ ] Implementar algoritmo de propagação;
+ - [x] Implementar algoritmo de propagação;
  - [ ] Implementar algoritmo de retro propagacao;
  - [ ] Implementar algoritmo de treinamento;
  - [x] Inicializar malha de pesos;
  - [x] Inicializar camadas;
  - [x] Incorporar conjunto de treinamento e de validação;
- - [ ] Implementar salvamento e carregamento da rede;
+ - [ ] Implementar salvamento e ~~carregamento~~ da rede;
  - [ ] Erro de treinamento e validação por época
 
 ######Camada:
