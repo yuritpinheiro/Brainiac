@@ -1,25 +1,28 @@
-Rede:
-	- [ ] Implementar algoritmo de propagação;
-	- [ ] Implementar algoritmo de retro propagacao;
-	- [ ] Implementar algoritmo de treinamento;
-	- [ ] Inicializar malha de pesos;
-	- [ ] Inicializar camadas;
-	-	[ ] Incorporar conjunto de treinamento e de validação;
-	- [ ] Implementar salvamento e carregamento da rede;
+#### TODO:
+ - [ ] Rodar exemplo XOR no octave para determinar pesos do exemplo
 
-Camada:
-	- [ ] Definir camada de entrada diferente da camada de saida;
-	- [ ] Camada de saída sempre linear;
-	- [ ] Testar inicialização da camada;
+######Rede:
+ - [ ] Implementar algoritmo de propagação;
+ - [ ] Implementar algoritmo de retro propagacao;
+ - [ ] Implementar algoritmo de treinamento;
+ - [x] Inicializar malha de pesos;
+ - [x] Inicializar camadas;
+ - [x] Incorporar conjunto de treinamento e de validação;
+ - [ ] Implementar salvamento e carregamento da rede;
 
-MalhaPesos:
-	- [ ] Inicializar malha de pesos;
+######Camada:
+ - [ ] Definir camada de entrada diferente da camada de saida;
+ - [ ] Camada de saída sempre linear;
+ - [ ] Testar inicialização da camada;
 
-Neuronio:
-	- ;
+######MalhaPesos:
+ - [x] Inicializar malha de pesos;
 
-FuncaoAtivacao:
-	- Adicionar degrau bipolar;
+######Neuronio:
+ - [ ] Not sure yet;
 
-ConjuntoDados:
-	- [ ] Definir classe;
+######FuncaoAtivacao:
+ - [ ] Adicionar degrau bipolar;
+
+######ConjuntoDados:
+ - [x] Definir classe;
