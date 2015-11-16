@@ -29,6 +29,7 @@ public class Rede {
 		this.quantidadeCamadas = quantidadeCamadas;
 		this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.ENTRADA, funcaoAtivacaoCamada[0]);
 		this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.SAIDA, funcaoAtivacaoCamada[quantidadeCamadas]);
+		this.camadas = new ArrayList<Camada>();
 		this.camadas.add(camadaEntrada);
 		Camada camadaOculta;
 		for (int i = 1; i < quantidadeCamadas - 1; i++) {
@@ -122,14 +123,15 @@ public class Rede {
 			}
 
 			this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.ENTRADA, funcaoAtivacaoCamada[0]);
-			this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.SAIDA, funcaoAtivacaoCamada[quantidadeCamadas]);
-			this.camadas.add(camadaEntrada);
+			this.camadaSaida = new Camada(neuronioPorCamada[this.quantidadeCamadas - 1], Camada.SAIDA, funcaoAtivacaoCamada[this.quantidadeCamadas - 1]);
+			this.camadas = new ArrayList<Camada>();
+			this.camadas.add(this.camadaEntrada);
 			Camada camadaOculta;
 			for (int i = 1; i < quantidadeCamadas - 1; i++) {
 				camadaOculta = new Camada(neuronioPorCamada[i], Camada.OCULTA, funcaoAtivacaoCamada[i]);
 				this.camadas.add(camadaOculta);
 			}
-			this.camadas.add(camadaSaida);
+			this.camadas.add(this.camadaSaida);
 
 			malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
 
@@ -147,7 +149,19 @@ public class Rede {
 			bufferLeitura.close();
 			leitor.close();
 		} catch (Exception e){
-			System.out.println(e.getMessage());
+			System.out.println("Erro no carregamento da rede: " + e.getMessage());
+		}
+	}
+
+	public void print(){
+		System.out.println("Quantidade de camadas: " + quantidadeCamadas);
+		for (int i = 0; i < quantidadeCamadas; i++) {
+			System.out.println("Camada " + i + ": ");
+			this.camadas.get(i).print();
+		}
+		for (int i = 0; i < quantidadeCamadas - 1; i++){
+			System.out.println("Pesos da camada " + i + " para camada " + (i+1));
+			this.malhaPesos[i].print();
 		}
 	}
 

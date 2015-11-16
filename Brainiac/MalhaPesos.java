@@ -35,9 +35,11 @@ public class MalhaPesos {
 		}
 	}
 
-	public void printPesos(){
-		for (int i = 0; i < pesos.length; i++) {
-			System.out.println(pesos[i]);
+	public void print(){
+		for (int i = 0; i < tamanhoCamadaSeguinte; i++) {
+			for (int j = 0; j < tamanhoCamadaAnterior; j++) {
+				System.out.println("\tPeso do neurônio " + j + " para o neurônio " + i + ": " + pesos[(i * tamanhoCamadaSeguinte) + j]);
+			}
 		}
 	}
 }

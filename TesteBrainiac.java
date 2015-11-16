@@ -12,11 +12,14 @@ public class TesteBrainiac{
 		// testeNeuronio();
 		// testeMalhaPesos();
 		// testeConjuntoDados(); // Amostra
+		testeRede();
 	}
 
 	/* Teste Rede */
 	public static void testeRede(){
-
+		Rede rede = new Rede();
+		rede.carregarRede("exemplo.rede");
+		rede.print();
 	}
 
 	/* Teste Propagação */
@@ -59,7 +62,7 @@ public class TesteBrainiac{
 		malha.setPeso(1, 0, 3);
 		malha.setPeso(1, 1, 4);
 
-		malha.printPesos();
+		malha.print();
 
 		System.out.println(malha.getPeso(0, 0));
 		System.out.println(malha.getPeso(0, 1));
@@ -67,7 +70,7 @@ public class TesteBrainiac{
 		System.out.println(malha.getPeso(1, 1));
 
 		malha.inicializar();
-		malha.printPesos();
+		malha.print();
 
 		System.out.println(malha.getPeso(0, 0));
 		System.out.println(malha.getPeso(0, 1));
@@ -78,25 +81,37 @@ public class TesteBrainiac{
 	/* Teste Neurônios */
 	public static void testeNeuronio(){
 		System.out.println("Criar neurônio com ativação degrau");
-		Neuronio n = new Neuronio(FuncaoAtivacao.DEG);
-		System.out.println(n.ativacao(1));
-		System.out.println(n.ativacao(0));
-		System.out.println(n.ativacao(-1));
+		Neuronio n = new Neuronio(1, FuncaoAtivacao.DEG);
+		n.setPotencial(1);
+		System.out.println(n.ativacao());
+		n.setPotencial(0);
+		System.out.println(n.ativacao());
+		n.setPotencial(-1);
+		System.out.println(n.ativacao());
 		System.out.println("Criar neurônio com ativação linear");
-		n = new Neuronio(FuncaoAtivacao.LIN);
-		System.out.println(n.ativacao(1));
-		System.out.println(n.ativacao(0));
-		System.out.println(n.ativacao(-1));
+		n = new Neuronio(1, FuncaoAtivacao.LIN);
+		n.setPotencial(1);
+		System.out.println(n.ativacao());
+		n.setPotencial(0);
+		System.out.println(n.ativacao());
+		n.setPotencial(-1);
+		System.out.println(n.ativacao());
 		System.out.println("Criar neurônio com ativação sigmoide");
-		n = new Neuronio(FuncaoAtivacao.SIG);
-		System.out.println(n.ativacao(1));
-		System.out.println(n.ativacao(0));
-		System.out.println(n.ativacao(-1));
+		n = new Neuronio(1, FuncaoAtivacao.SIG);
+		n.setPotencial(1);
+		System.out.println(n.ativacao());
+		n.setPotencial(0);
+		System.out.println(n.ativacao());
+		n.setPotencial(-1);
+		System.out.println(n.ativacao());
 		System.out.println("Criar neurônio com ativação tangente hiperbolica");
-		n = new Neuronio(FuncaoAtivacao.TAN);
-		System.out.println(n.ativacao(1));
-		System.out.println(n.ativacao(0));
-		System.out.println(n.ativacao(-1));
+		n = new Neuronio(1, FuncaoAtivacao.TAN);
+		n.setPotencial(1);
+		System.out.println(n.ativacao());
+		n.setPotencial(0);
+		System.out.println(n.ativacao());
+		n.setPotencial(-1);
+		System.out.println(n.ativacao());
 	}
 
 	/* Teste Funções de ativação */

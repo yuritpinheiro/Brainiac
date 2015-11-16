@@ -15,10 +15,12 @@
 ######Camada:
  - [ ] Definir camada de entrada diferente da camada de saida;
  - [ ] Camada de saída sempre linear;
- - [ ] Testar inicialização da camada;
+ - [x] Testar inicialização da camada;
+ - [ ] Adaptar para uso de bias
 
 ######MalhaPesos:
  - [x] Inicializar malha de pesos;
+ - [ ] Ajustar a malha para pesos de bias
 
 ######Neuronio:
  - [ ] Not sure yet;

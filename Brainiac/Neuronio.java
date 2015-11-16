@@ -40,6 +40,10 @@ public class Neuronio {
 		this.potencial += potencial;
 	}
 
+	public void print(){
+		System.out.println("\t\tFuncaoAtivacao: " + funcaoAtivacao + ".");
+	}
+
 	public int getFuncaoAtivacao(){
 		return this.funcaoAtivacao;
 	}

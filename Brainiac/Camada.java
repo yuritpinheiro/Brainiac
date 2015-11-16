@@ -14,10 +14,19 @@ public class Camada {
 
 	public Camada(int quantidadeNeuronios, int tipoCamada, int funcaoAtivacao){
 		this.quantidadeNeuronios = quantidadeNeuronios;
+		neuronios = new ArrayList<Neuronio>();
 		Neuronio n;
 		for (int i = 0; i < quantidadeNeuronios; i++) {
 			n = new Neuronio(tipoCamada, funcaoAtivacao);
 			this.neuronios.add(n);
+		}
+	}
+
+	public void print(){
+		System.out.println("\tQuantidade de neurônios: " + quantidadeNeuronios);
+		for (int i = 0; i < quantidadeNeuronios; i++) {
+			System.out.println("\tNeurônio " + i + ": ");
+			neuronios.get(i).print();
 		}
 	}
 
