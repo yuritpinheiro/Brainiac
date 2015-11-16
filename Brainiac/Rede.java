@@ -24,14 +24,15 @@ public class Rede {
 
 	public Rede(int quantidadeCamadas,
 				int neuronioPorCamada[],
+				int funcaoAtivacaoCamada[],
 				String conjuntoTreinameto,
 				String conjuntoValidacao){
 		this.quantidadeCamadas = quantidadeCamadas;
-		this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.ENTRADA);
-		this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.SAIDA);
+		this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.ENTRADA, funcaoAtivacaoCamada[0]);
+		this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.SAIDA), funcaoAtivacaoCamada[quantidadeCamadas];
 		Camada camadaOculta;
-		for (int i = 0; i < quantidadeCamadas - 2 ; i++) {
-			camadaOculta = new Camada(neuronioPorCamada[i], Camada.OCULTA);
+		for (int i = 1; i < quantidadeCamadas - 1; i++) {
+			camadaOculta = new Camada(neuronioPorCamada[i], Camada.OCULTA, funcaoAtivacaoCamada[i]);
 			this.camadasOcultas.add(camadaOculta);
 		}
 		malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
@@ -48,7 +49,7 @@ public class Rede {
 	/* Propagação */
 	public double propagacao(Amostra entrada){
 		double resultado = 0;
-		
+
 		return resultado;
 	}
 

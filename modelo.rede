@@ -1,0 +1,12 @@
+<quantidade_camadas>
+<tam_camada_entrada>'\t'<tam_camada_1>'\t'<tam_camada_2>'\t'...'\t'<tam_camada_n>'\t'<tam_camada_saida>
+<fun_camada_entrada>'\t'<fun_camada_1>'\t'<fun_camada_2>'\t'...'\t'<fun_camada_n>'\t'<fun_camada_saida>
+malha_pesos{
+malha_pesos_1[<peso(0,0)>'\t'<peso(0,1)>'\t'<peso(0,2)>'\t'...'\t'<peso(n,m)> //n: tamanho camada seguinte, m: tamanho camada anterior
+malha_pesos_2[<peso(0,0)>'\t'<peso(0,1)>'\t'<peso(0,2)>'\t'...'\t'<peso(n,m)> //n: tamanho camada seguinte, m: tamanho camada anterior
+malha_pesos_3[<peso(0,0)>'\t'<peso(0,1)>'\t'<peso(0,2)>'\t'...'\t'<peso(n,m)> //n: tamanho camada seguinte, m: tamanho camada anterior
+.
+.
+.
+malha_pesos_l[<peso(0,0)>'\t'<peso(0,1)>'\t'<peso(0,2)>'\t'...'\t'<peso(n,m)> //n: tamanho camada seguinte, m: tamanho camada anterior
+}

@@ -10,7 +10,7 @@ public class Neuronio {
 
 	public Neuronio(){}
 
-	public Neuronio(int funcaoAtivacao){
+	public Neuronio(int tipoNeuronio, int funcaoAtivacao){
 		this.funcaoAtivacao = funcaoAtivacao;
 	}
 
@@ -28,6 +28,9 @@ public class Neuronio {
 				break;
 			case FuncaoAtivacao.TAN:
 				resultado = FuncaoAtivacao.tangenteHiperbolica(potencial);
+				break;
+			case FuncaoAtivacao.SIG_HEITOR:
+				resultado = FuncaoAtivacao.sigmoideHeitor(potencial);
 				break;
 		}
 		return resultado;

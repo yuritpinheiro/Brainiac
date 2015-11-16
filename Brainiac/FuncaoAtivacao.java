@@ -5,6 +5,7 @@ public abstract class FuncaoAtivacao{
 	public static final int LIN = 1;
 	public static final int SIG = 2;
 	public static final int TAN = 3;
+	public static final int SIG_HEITOR = 4;
 
 	public static double degrau(double potencial){
 		return (potencial > 0 ? 1 : 0);
@@ -36,5 +37,13 @@ public abstract class FuncaoAtivacao{
 
 	public static double derivadaTangenteHiperbolica(double potencial){
 		return (1 - Math.pow(tangenteHiperbolica(potencial), 2));
+	}
+
+	public static double sigmoideHeitor(double potencial){
+		return (2 / (1 + Math.exp(2 * (-potencial)))) - 1;
+	}
+
+	public static double derivadaSigmoideHeitor(double potencial){
+		return (1 - (Math.pow(sigmoideHeitor(potencial),2)));
 	}
 }

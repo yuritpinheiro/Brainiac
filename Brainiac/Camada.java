@@ -12,11 +12,11 @@ public class Camada {
 
 	public Camada(){}
 
-	public Camada(int quantidadeNeuronios, int tipoCamada){
+	System.out.print();ublic Camada(int quantidadeNeuronios, int tipoCamada, int funcaoAtivacao){
 		this.quantidadeNeuronios = quantidadeNeuronios;
 		Neuronio n;
 		for (int i = 0; i < quantidadeNeuronios; i++) {
-			n = new Neuronio(tipoCamada);
+			n = new Neuronio(tipoCamada, funcaoAtivacao);
 			this.neuronios.add(n);
 		}
 	}
