@@ -16,10 +16,22 @@ public class Camada {
 		this.quantidadeNeuronios = quantidadeNeuronios;
 		neuronios = new ArrayList<Neuronio>();
 		Neuronio n;
-		for (int i = 0; i < quantidadeNeuronios; i++) {
-			n = new Neuronio(tipoCamada, funcaoAtivacao);
+
+		if (tipoCamada != SAIDA){
+			n = new Neuronio(tipoCamada, FuncaoAtivacao.LIN);
+			n.setPotencial(1);
 			this.neuronios.add(n);
+			for (int i = 1; i < quantidadeNeuronios; i++) {
+				n = new Neuronio(tipoCamada, funcaoAtivacao);
+				this.neuronios.add(n);
+			}
+		} else {
+			for (int i = 0; i < quantidadeNeuronios; i++) {
+				n = new Neuronio(tipoCamada, funcaoAtivacao);
+				this.neuronios.add(n);
+			}
 		}
+
 	}
 
 	public void print(){

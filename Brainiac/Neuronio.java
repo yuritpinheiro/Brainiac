@@ -7,6 +7,7 @@ public class Neuronio {
 	public static final int ENTRADA = 0;
 	public static final int OCULTO = 1;
 	public static final int SAIDA = 2;
+	public static final int BIAS = 3;
 
 	public Neuronio(){}
 
@@ -16,7 +17,7 @@ public class Neuronio {
 
 	public double ativacao(){
 		double resultado = Double.NaN;
-		switch (funcaoAtivacao) {
+		switch (this.funcaoAtivacao) {
 			case FuncaoAtivacao.DEG:
 				resultado = FuncaoAtivacao.degrau(this.potencial);
 				break;

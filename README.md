@@ -1,6 +1,6 @@
 #### TODO:
  - [x] Rodar exemplo XOR no octave para determinar pesos do exemplo
- - [ ] Gerar conjunto de treinamento e validação
+ - [x] Gerar conjunto de treinamento e validação
 
 ######Rede:
  - [x] Implementar algoritmo de propagação;

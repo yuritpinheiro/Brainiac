@@ -12,8 +12,8 @@ public class TesteBrainiac{
 		// testeNeuronio();
 		// testeMalhaPesos();
 		// testeConjuntoDados(); // Amostra
-		testeRede();
-		// testePropagacao();
+		// testeRede();
+		testePropagacao();
 	}
 
 	/* Teste Rede */
@@ -27,6 +27,7 @@ public class TesteBrainiac{
 	public static void testePropagacao(){
 		Rede rede = new Rede();
 		rede.carregarRede("exemplo.rede");
+		rede.print();
 		Amostra dados = new Amostra(3);
 		double entradas[] = {1, 0, 0};
 		dados.setEntradas(entradas);

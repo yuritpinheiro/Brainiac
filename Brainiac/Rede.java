@@ -51,20 +51,28 @@ public class Rede {
 	/* Propagação */
 	public double[] propagacao(Amostra dados){
 		double resultado[] = new double[camadas.get(this.quantidadeCamadas - 1).getTamanhoCamada()];
-		for (int i = 0; i < camadas.get(0).getTamanhoCamada();	i++) {
+
+		for (int i = 0; i < camadaEntrada.getTamanhoCamada(); i++) {
 			camadaEntrada.getNeuronio(i).setPotencial(dados.getEntrada(i));
 		}
 
-		for (int i = 1; i < this.quantidadeCamadas; i++) {
-			for (int j = 1; j < camadas.get(i).getTamanhoCamada(); j++) {
-				camadas.get(i).getNeuronio(j).setPotencial(0);
-				for (int k = 0; k < camadas.get(i-1).getTamanhoCamada(); k++) {
-					camadas.get(i).getNeuronio(j).incrementoPotencial(camadas.get(i-1).getNeuronio(k).ativacao() * malhaPesos[i - 1].getPeso(j, k));
+		for (int i = 0; i < this.quantidadeCamadas - 1; i++) { // laço para camadas
+			for (int j = 1; j < camadas.get(i + 1).getTamanhoCamada(); j++) { // laço para neuronios da camada i + 1
+				camadas.get(i + 1).getNeuronio(j).setPotencial(0);
+				for (int k = 0; k < camadas.get(i).getTamanhoCamada(); k++) { // laço para neuronios da camada i
+					camadas.get(i + 1).getNeuronio(j).incrementoPotencial(camadas.get(i).getNeuronio(k).ativacao() * malhaPesos[i].getPeso(j-1, k));
 				}
 			}
 		}
 
-		for (int i = 0; i < camadas.get(this.quantidadeCamadas - 1).getTamanhoCamada(); i++) {
+		for (int i = 0; i < camadaSaida.getTamanhoCamada(); i++) {
+			camadaSaida.getNeuronio(i).setPotencial(0);
+			for (int j = 0; j < camadas.get(this.quantidadeCamadas - 2).getTamanhoCamada(); j++) {
+				camadaSaida.getNeuronio(i).incrementoPotencial(camadas.get(this.quantidadeCamadas - 2).getNeuronio(j).ativacao() * malhaPesos[this.quantidadeCamadas - 2].getPeso(i, j));
+			}
+		}
+
+		for (int i = 0; i < camadaSaida.getTamanhoCamada(); i++) {
 			resultado[i] = camadaSaida.getNeuronio(i).ativacao();
 		}
 
@@ -123,13 +131,13 @@ public class Rede {
 				funcaoAtivacaoCamada[i] = Integer.valueOf(dados[i]);
 			}
 
-			this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.ENTRADA, funcaoAtivacaoCamada[0]);
+			this.camadaEntrada = new Camada(neuronioPorCamada[0] + 1, Camada.ENTRADA, funcaoAtivacaoCamada[0]);
 			this.camadaSaida = new Camada(neuronioPorCamada[this.quantidadeCamadas - 1], Camada.SAIDA, funcaoAtivacaoCamada[this.quantidadeCamadas - 1]);
 			this.camadas = new ArrayList<Camada>();
 			this.camadas.add(this.camadaEntrada);
 			Camada camadaOculta;
 			for (int i = 1; i < quantidadeCamadas - 1; i++) {
-				camadaOculta = new Camada(neuronioPorCamada[i], Camada.OCULTA, funcaoAtivacaoCamada[i]);
+				camadaOculta = new Camada(neuronioPorCamada[i] + 1, Camada.OCULTA, funcaoAtivacaoCamada[i]);
 				this.camadas.add(camadaOculta);
 			}
 			this.camadas.add(this.camadaSaida);
