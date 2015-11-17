@@ -50,21 +50,21 @@ public class Rede {
 
 	/* Propagação */
 	public double[] propagacao(Amostra dados){
-		double resultado[] = new double[camadas.get(quantidadeCamadas - 1).getTamanhoCamada()];
+		double resultado[] = new double[camadas.get(this.quantidadeCamadas - 1).getTamanhoCamada()];
 		for (int i = 0; i < camadas.get(0).getTamanhoCamada();	i++) {
 			camadaEntrada.getNeuronio(i).setPotencial(dados.getEntrada(i));
 		}
 
-		for (int i = 1; i < quantidadeCamadas; i++) {
+		for (int i = 1; i < this.quantidadeCamadas; i++) {
 			for (int j = 1; j < camadas.get(i).getTamanhoCamada(); j++) {
 				camadas.get(i).getNeuronio(j).setPotencial(0);
-				for (int k = 1; k < camadas.get(i-1).getTamanhoCamada(); k++) {
+				for (int k = 0; k < camadas.get(i-1).getTamanhoCamada(); k++) {
 					camadas.get(i).getNeuronio(j).incrementoPotencial(camadas.get(i-1).getNeuronio(k).ativacao() * malhaPesos[i - 1].getPeso(j, k));
 				}
 			}
 		}
 
-		for (int i = 0; i < camadas.get(quantidadeCamadas - 1).getTamanhoCamada(); i++) {
+		for (int i = 0; i < camadas.get(this.quantidadeCamadas - 1).getTamanhoCamada(); i++) {
 			resultado[i] = camadaSaida.getNeuronio(i).ativacao();
 		}
 

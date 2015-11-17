@@ -12,8 +12,8 @@ public class TesteBrainiac{
 		// testeNeuronio();
 		// testeMalhaPesos();
 		// testeConjuntoDados(); // Amostra
-		// testeRede();
-		testePropagacao();
+		testeRede();
+		// testePropagacao();
 	}
 
 	/* Teste Rede */
