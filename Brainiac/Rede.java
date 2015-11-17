@@ -56,8 +56,9 @@ public class Rede {
 		}
 
 		for (int i = 1; i < quantidadeCamadas; i++) {
-			for (int j = 0; j < camadas.get(i).getTamanhoCamada(); j++) {
-				for (int k = 0; k < camadas.get(i-1).getTamanhoCamada(); k++) {
+			for (int j = 1; j < camadas.get(i).getTamanhoCamada(); j++) {
+				camadas.get(i).getNeuronio(j).setPotencial(0);
+				for (int k = 1; k < camadas.get(i-1).getTamanhoCamada(); k++) {
 					camadas.get(i).getNeuronio(j).incrementoPotencial(camadas.get(i-1).getNeuronio(k).ativacao() * malhaPesos[i - 1].getPeso(j, k));
 				}
 			}
