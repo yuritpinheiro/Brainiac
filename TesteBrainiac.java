@@ -12,7 +12,8 @@ public class TesteBrainiac{
 		// testeNeuronio();
 		// testeMalhaPesos();
 		// testeConjuntoDados(); // Amostra
-		testeRede();
+		// testeRede();
+		testePropagacao();
 	}
 
 	/* Teste Rede */
@@ -23,8 +24,24 @@ public class TesteBrainiac{
 	}
 
 	/* Teste Propagação */
-	public static void testePropagação(){
-
+	public static void testePropagacao(){
+		Rede rede = new Rede();
+		rede.carregarRede("exemplo.rede");
+		Amostra dados = new Amostra(3);
+		double entradas[] = {1, 0, 0};
+		dados.setEntradas(entradas);
+		System.out.println("Saida (0,0): " + rede.propagacao(dados)[0]);
+		entradas[2] = 1;
+		dados.setEntradas(entradas);
+		System.out.println("Saida (0,1): " + rede.propagacao(dados)[0]);
+		entradas[1] = 1;
+		entradas[2] = 0;
+		dados.setEntradas(entradas);
+		System.out.println("Saida (1,0): " + rede.propagacao(dados)[0]);
+		entradas[1] = 1;
+		entradas[2] = 1;
+		dados.setEntradas(entradas);
+		System.out.println("Saida (1,1): " + rede.propagacao(dados)[0]);
 	}
 
 	/* Teste Treinamento */

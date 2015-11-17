@@ -39,7 +39,7 @@ public class Rede {
 		this.camadas.add(camadaSaida);
 		malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
 		for (int i = 0; i < malhaPesos.length; i++) {
-			this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1], neuronioPorCamada[i]);
+			this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1] - 1, neuronioPorCamada[i]);
 			this.malhaPesos[i].inicializar();
 		}
 		this.conjuntoTreinameto = new ConjuntoDados();
@@ -50,7 +50,7 @@ public class Rede {
 
 	/* Propagação */
 	public double[] propagacao(Amostra dados){
-		double resultado[] = new double[camadas.get(quantidadeCamadas).getTamanhoCamada()];
+		double resultado[] = new double[camadas.get(quantidadeCamadas - 1).getTamanhoCamada()];
 		for (int i = 0; i < camadas.get(0).getTamanhoCamada();	i++) {
 			camadaEntrada.getNeuronio(i).setPotencial(dados.getEntrada(i));
 		}
@@ -58,12 +58,12 @@ public class Rede {
 		for (int i = 1; i < quantidadeCamadas; i++) {
 			for (int j = 0; j < camadas.get(i).getTamanhoCamada(); j++) {
 				for (int k = 0; k < camadas.get(i-1).getTamanhoCamada(); k++) {
-					camadas.get(i).getNeuronio(j).incrementoPotencial(camadas.get(i-1).getNeuronio(k).ativacao() * malhaPesos[i].getPeso(j, k));
+					camadas.get(i).getNeuronio(j).incrementoPotencial(camadas.get(i-1).getNeuronio(k).ativacao() * malhaPesos[i - 1].getPeso(j, k));
 				}
 			}
 		}
 
-		for (int i = 0; i < camadas.get(quantidadeCamadas).getTamanhoCamada(); i++) {
+		for (int i = 0; i < camadas.get(quantidadeCamadas - 1).getTamanhoCamada(); i++) {
 			resultado[i] = camadaSaida.getNeuronio(i).ativacao();
 		}
 
@@ -136,11 +136,11 @@ public class Rede {
 			malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
 
 			for (int i = 0; i < quantidadeCamadas - 1; i++) {
-				this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1], neuronioPorCamada[i]);
+				this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1], neuronioPorCamada[i] + 1);
 				linha = bufferLeitura.readLine();
 				dados = linha.split("\t");
-				double pesos[] = new double[neuronioPorCamada[i] * neuronioPorCamada[i+1]];
-				for (int j = 0; j < neuronioPorCamada[i] * neuronioPorCamada[i+1]; j++) {
+				double pesos[] = new double[(neuronioPorCamada[i] + 1) * neuronioPorCamada[i+1]];
+				for (int j = 0; j < ((neuronioPorCamada[i] + 1) * neuronioPorCamada[i+1]); j++) {
 					pesos[j] = Double.valueOf(dados[j]);
 				}
 				this.malhaPesos[i].setPesos(pesos);
