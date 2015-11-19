@@ -44,7 +44,7 @@ public class MalhaPesos {
 	}
 
 	@Override
-	public void toString(){
+	public String toString(){
 		String stringPesos = new String();
 		for (double pesos : pesos){
 			stringPesos += pesos + "\t";

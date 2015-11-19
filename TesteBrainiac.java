@@ -12,7 +12,7 @@ public class TesteBrainiac{
 		// testeNeuronio();
 		// testeMalhaPesos();
 		// testeConjuntoDados(); // Amostra
-		// testeRede();
+		testeRede();
 		// testePropagacao();
 	}
 
@@ -21,6 +21,7 @@ public class TesteBrainiac{
 		Rede rede = new Rede();
 		rede.carregarRede("exemplo.rede");
 		rede.salvarRede("redeHeitor");
+		rede.carregarRede("redeHeitor.rede");
 		rede.print();
 	}
 

@@ -9,7 +9,7 @@
  - [x] Inicializar malha de pesos;
  - [x] Inicializar camadas;
  - [x] Incorporar conjunto de treinamento e de validação;
- - [ ] Implementar salvamento e ~~carregamento~~ da rede;
+ - [x] Implementar salvamento e carregamento da rede;
  - [ ] Erro de treinamento e validação por época
 
 ######Camada:
