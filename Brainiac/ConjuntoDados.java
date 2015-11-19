@@ -56,13 +56,4 @@ public class ConjuntoDados{
 	public boolean terminado(){
 		return (contadorDados < amostras.size());
 	}
-
-/* escrever em arquivo */
-/*
-	FileWriter escritor = new FileWriter(fonte);
-	PrintWriter saida = new PrintWriter(escritor, true);
-
-	saida.close();
-	escritor.close();
-*/
 }
