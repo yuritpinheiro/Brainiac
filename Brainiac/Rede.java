@@ -27,13 +27,13 @@ public class Rede {
 				String conjuntoTreinameto,
 				String conjuntoValidacao){
 		this.quantidadeCamadas = quantidadeCamadas;
-		this.camadaEntrada = new Camada(neuronioPorCamada[0], Camada.ENTRADA, funcaoAtivacaoCamada[0]);
-		this.camadaSaida = new Camada(neuronioPorCamada[quantidadeCamadas], Camada.SAIDA, funcaoAtivacaoCamada[quantidadeCamadas]);
+		this.camadaEntrada = new Camada(neuronioPorCamada[0] + 1, Camada.ENTRADA, funcaoAtivacaoCamada[0]);
+		this.camadaSaida = new Camada(neuronioPorCamada[this.quantidadeCamadas - 1], Camada.SAIDA, funcaoAtivacaoCamada[this.quantidadeCamadas - 1]);
 		this.camadas = new ArrayList<Camada>();
 		this.camadas.add(camadaEntrada);
 		Camada camadaOculta;
 		for (int i = 1; i < quantidadeCamadas - 1; i++) {
-			camadaOculta = new Camada(neuronioPorCamada[i], Camada.OCULTA, funcaoAtivacaoCamada[i]);
+			camadaOculta = new Camada(neuronioPorCamada[i] + 1, Camada.OCULTA, funcaoAtivacaoCamada[i]);
 			this.camadas.add(camadaOculta);
 		}
 		this.camadas.add(camadaSaida);
