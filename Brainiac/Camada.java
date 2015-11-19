@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Camada {
 	private ArrayList<Neuronio> neuronios;
+	private int funcaoAtivacao;
 	private int quantidadeNeuronios;
 
 	public static final int ENTRADA = 0;
@@ -15,8 +16,9 @@ public class Camada {
 	public Camada(int quantidadeNeuronios, int tipoCamada, int funcaoAtivacao){
 		this.quantidadeNeuronios = quantidadeNeuronios;
 		neuronios = new ArrayList<Neuronio>();
-		Neuronio n;
+		this.funcaoAtivacao = funcaoAtivacao;
 
+		Neuronio n;
 		if (tipoCamada != SAIDA){
 			n = new Neuronio(tipoCamada, FuncaoAtivacao.LIN);
 			n.setPotencial(1);
@@ -56,6 +58,10 @@ public class Camada {
 
 	public Neuronio getNeuronio(int i){
 		return this.neuronios.get(i);
+	}
+
+	public int getFuncaoAtivacao(){
+		return this.funcaoAtivacao;
 	}
 
 	public void setNeuronio(Neuronio neuronio, int i){

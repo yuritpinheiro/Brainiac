@@ -90,15 +90,36 @@ public class Rede {
 		/* Treinamento */
 	}
 
-	public void salvarRede(){
-		/* escrever em arquivo */
-		/*
-			FileWriter escritor = new FileWriter(fonte);
+	public void salvarRede(String destino){
+		try{
+			FileWriter escritor = new FileWriter(destino + ".rede");
 			PrintWriter saida = new PrintWriter(escritor, true);
+
+			System.out.println("Abertura terminado");
+
+			saida.println(quantidadeCamadas);
+			String neuronioPorCamada = new String();
+			String funcaoAtivacaoCamada = new String();
+			for (int i = 0; i < quantidadeCamadas - 1; i++){
+				neuronioPorCamada += (camadas.get(i).getTamanhoCamada() - 1) + "\t";
+				funcaoAtivacaoCamada += camadas.get(i).getFuncaoAtivacao() + "\t";
+			}
+
+			neuronioPorCamada += camadaSaida.getTamanhoCamada() + "\t";
+			funcaoAtivacaoCamada += camadaSaida.getFuncaoAtivacao() + "\t";
+
+			saida.println(neuronioPorCamada);
+			saida.println(funcaoAtivacaoCamada);
+
+			for (MalhaPesos malha : malhaPesos) {
+				saida.println(malha.toString());
+			}
 
 			saida.close();
 			escritor.close();
-		*/
+		} catch (Exception e){
+			System.out.println("Erro no carregamento da rede: " + e.getMessage());
+		}
 	}
 
 	public void carregarRede(String rede){

@@ -42,4 +42,14 @@ public class MalhaPesos {
 			}
 		}
 	}
+
+	@Override
+	public String toString(){
+		String stringPesos = new String();
+		for (double pesos : pesos){
+			stringPesos += pesos + "\t";
+		}
+		return stringPesos;
+	}
+
 }

@@ -13,13 +13,15 @@ public class TesteBrainiac{
 		// testeMalhaPesos();
 		// testeConjuntoDados(); // Amostra
 		// testeRede();
-		testePropagacao();
+		// testePropagacao();
 	}
 
 	/* Teste Rede */
 	public static void testeRede(){
 		Rede rede = new Rede();
 		rede.carregarRede("exemplo.rede");
+		rede.salvarRede("redeHeitor");
+		rede.carregarRede("redeHeitor.rede");
 		rede.print();
 	}
 
@@ -47,11 +49,6 @@ public class TesteBrainiac{
 
 	/* Teste Treinamento */
 	public static void testeTreinamento(){
-
-	}
-
-	/* Teste RetroPropagação */
-	public static void testeRetroPropagação(){
 
 	}
 
