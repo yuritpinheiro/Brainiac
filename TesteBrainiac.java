@@ -12,7 +12,7 @@ public class TesteBrainiac{
 		// testeNeuronio();
 		// testeMalhaPesos();
 		// testeConjuntoDados(); // Amostra
-		testeRede();
+		// testeRede();
 		// testePropagacao();
 	}
 
@@ -49,11 +49,6 @@ public class TesteBrainiac{
 
 	/* Teste Treinamento */
 	public static void testeTreinamento(){
-
-	}
-
-	/* Teste RetroPropagação */
-	public static void testeRetroPropagação(){
 
 	}
 
