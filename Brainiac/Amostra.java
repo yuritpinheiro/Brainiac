@@ -18,4 +18,8 @@ public class Amostra{
 	public void setEntradas(double entradas[]){
 		this.entradas = entradas;
 	}
+
+	public double getTamanhoAmostra(){
+		return this.entradas.length;
+	}
 }
