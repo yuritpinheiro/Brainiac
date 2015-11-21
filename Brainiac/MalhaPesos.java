@@ -21,7 +21,7 @@ public class MalhaPesos {
 		return pesos[neuronioSeguinte * tamanhoCamadaSeguinte + neuronioAnterior];
 	}
 
-	public void setPeso(int neuronioSeguinte, int neuronioAnterior, int peso){
+	public void setPeso(int neuronioSeguinte, int neuronioAnterior, double peso){
 		pesos[neuronioSeguinte * tamanhoCamadaSeguinte + neuronioAnterior] = peso;
 	}
 
@@ -46,8 +46,8 @@ public class MalhaPesos {
 	@Override
 	public String toString(){
 		String stringPesos = new String();
-		for (double pesos : pesos){
-			stringPesos += pesos + "\t";
+		for (double peso : pesos){
+			stringPesos += peso + "\t";
 		}
 		return stringPesos;
 	}

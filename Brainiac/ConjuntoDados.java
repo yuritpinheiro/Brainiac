@@ -56,4 +56,9 @@ public class ConjuntoDados{
 	public boolean terminado(){
 		return (contadorDados < amostras.size());
 	}
+
+	public int getTamanhoDados(){
+
+		return this.amostras.size();
+	}
 }
