@@ -14,6 +14,7 @@ public class TesteBrainiac{
 		// testeConjuntoDados(); // Amostra
 		// testeRede();
 		// testePropagacao();
+		testeTreinamento();
 	}
 
 	/* Teste Rede */
@@ -49,14 +50,34 @@ public class TesteBrainiac{
 
 	/* Teste Treinamento */
 	public static void testeTreinamento(){
+		int neuronioPorCamada[] = {2, 3, 1};
+		int funcaoAtivacaoCamada[] = {1, 4, 1};
+		Rede rede = new Rede(3, neuronioPorCamada, funcaoAtivacaoCamada, "Dados/xor.conjunto", "Dados/xor.conjunto");
 
+		rede.treinamento(100000, 0.0001);
+
+		Amostra dados = new Amostra(3);
+		double entradas[] = {1, 0, 0};
+		dados.setEntradas(entradas);
+		System.out.println("Saida (0,0): " + rede.propagacao(dados)[0]);
+		entradas[2] = 1;
+		dados.setEntradas(entradas);
+		System.out.println("Saida (0,1): " + rede.propagacao(dados)[0]);
+		entradas[1] = 1;
+		entradas[2] = 0;
+		dados.setEntradas(entradas);
+		System.out.println("Saida (1,0): " + rede.propagacao(dados)[0]);
+		entradas[1] = 1;
+		entradas[2] = 1;
+		dados.setEntradas(entradas);
+		System.out.println("Saida (1,1): " + rede.propagacao(dados)[0]);
 	}
 
 	/* Teste ConjuntoDados e Amostra */
 	public static void testeConjuntoDados(){
 		ConjuntoDados conjunto = new ConjuntoDados();
 
-		conjunto.carregarDados("exemplo.conjunto", 4);
+		conjunto.carregarDados("Dados/xor.conjunto", 4);
 
 		while(conjunto.terminado()){
 			Amostra amostra;

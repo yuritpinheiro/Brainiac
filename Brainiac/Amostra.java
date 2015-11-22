@@ -19,7 +19,7 @@ public class Amostra{
 		this.entradas = entradas;
 	}
 
-	public double getTamanhoAmostra(){
+	public int getTamanhoAmostra(){
 		return this.entradas.length;
 	}
 }

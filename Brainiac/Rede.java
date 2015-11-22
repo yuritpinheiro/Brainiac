@@ -14,7 +14,7 @@ public class Rede {
 	private Camada camadaSaida;
 	private ArrayList<Camada> camadas;
 	private MalhaPesos malhaPesos[];
-	private ConjuntoDados conjuntoTreinameto;
+	private ConjuntoDados conjuntoTreinamento;
 	private ConjuntoDados conjuntoValidacao;
 
 	double erro = 0;
@@ -26,7 +26,7 @@ public class Rede {
 	public Rede(int quantidadeCamadas,
 				int neuronioPorCamada[],
 				int funcaoAtivacaoCamada[],
-				String conjuntoTreinameto,
+				String conjuntoTreinamento,
 				String conjuntoValidacao){
 		this.quantidadeCamadas = quantidadeCamadas;
 		this.camadaEntrada = new Camada(neuronioPorCamada[0] + 1, Camada.ENTRADA, funcaoAtivacaoCamada[0]);
@@ -41,13 +41,13 @@ public class Rede {
 		this.camadas.add(camadaSaida);
 		malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
 		for (int i = 0; i < malhaPesos.length; i++) {
-			this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1] - 1, neuronioPorCamada[i]);
+			this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1], neuronioPorCamada[i] + 1);
 			this.malhaPesos[i].inicializar();
 		}
-		this.conjuntoTreinameto = new ConjuntoDados();
-		this.conjuntoTreinameto.carregarDados(conjuntoTreinameto, neuronioPorCamada[0]);
+		this.conjuntoTreinamento = new ConjuntoDados();
+		this.conjuntoTreinamento.carregarDados(conjuntoTreinamento, camadaEntrada.getTamanhoCamada() + camadaSaida.getTamanhoCamada());
 		this.conjuntoValidacao = new ConjuntoDados();
-		this.conjuntoValidacao.carregarDados(conjuntoValidacao, neuronioPorCamada[0]);
+		this.conjuntoValidacao.carregarDados(conjuntoValidacao, camadaEntrada.getTamanhoCamada() + camadaSaida.getTamanhoCamada());
 	}
 
 	/* Propagação */
@@ -81,54 +81,53 @@ public class Rede {
 		return resultado;
 	}
 
+	/* Backpropagation */
 	public void retroPropagacao(double [] erro, double n){
-		/* Backpropagation */
 
-	double gradiente_camada_saida[] = new double[camadaSaida.getTamanhoCamada()];
-	double potencialAtivacao[] = new double[camadaSaida.getTamanhoCamada()];
-    double peso = 0;
+		double gradiente_camada_saida[] = new double[camadaSaida.getTamanhoCamada()];
+		double potencialAtivacao[] = new double[camadaSaida.getTamanhoCamada()];
+	    double peso = 0;
 
-	for( int i = 0; i < camadaSaida.getTamanhoCamada() - 1; i++){
+		for( int i = 0; i < camadaSaida.getTamanhoCamada() - 1; i++){
 
-	  int funcaoAtivacaoCamadasaida = camadaSaida.getFuncaoAtivacao();
-	  double derivada_y =0;
-	  double y =0;
-		switch(funcaoAtivacaoCamadasaida){
+			int funcaoAtivacaoCamadasaida = camadaSaida.getFuncaoAtivacao();
+			double derivada_y =0;
+			double y =0;
+			switch(funcaoAtivacaoCamadasaida){
+				case 0:
+					derivada_y = FuncaoAtivacao.derivadaDegrau(camadaSaida.getNeuronio(i).getPotencial());
+					 y = FuncaoAtivacao.degrau(camadaSaida.getNeuronio(i).getPotencial());
+				break;
 
-			case 0: 
-				derivada_y = FuncaoAtivacao.derivadaDegrau(camadaSaida.getNeuronio(i).getPotencial());
-				 y = FuncaoAtivacao.degrau(camadaSaida.getNeuronio(i).getPotencial());
-			break;
+				case 1:
+					derivada_y = FuncaoAtivacao.derivadaLinear(camadaSaida.getNeuronio(i).getPotencial());
+					y = FuncaoAtivacao.linear(camadaSaida.getNeuronio(i).getPotencial());
+				break;
 
-			case 1: 
-				derivada_y = FuncaoAtivacao.derivadaLinear(camadaSaida.getNeuronio(i).getPotencial());
-				y = FuncaoAtivacao.linear(camadaSaida.getNeuronio(i).getPotencial());
-			break;
+				case 2:
+					derivada_y = FuncaoAtivacao.derivadaSigmoide(camadaSaida.getNeuronio(i).getPotencial());
+					y = FuncaoAtivacao.sigmoide(camadaSaida.getNeuronio(i).getPotencial());
+				break;
 
-			case 2: 
-				derivada_y = FuncaoAtivacao.derivadaSigmoide(camadaSaida.getNeuronio(i).getPotencial());
-				y = FuncaoAtivacao.sigmoide(camadaSaida.getNeuronio(i).getPotencial());
-			break;
+				case 3:
+					derivada_y = FuncaoAtivacao.derivadaTangenteHiperbolica(camadaSaida.getNeuronio(i).getPotencial());
+					y = FuncaoAtivacao.tangenteHiperbolica(camadaSaida.getNeuronio(i).getPotencial());
+				break;
 
-			case 3: 
-				derivada_y = FuncaoAtivacao.derivadaTangenteHiperbolica(camadaSaida.getNeuronio(i).getPotencial());
-				y = FuncaoAtivacao.tangenteHiperbolica(camadaSaida.getNeuronio(i).getPotencial());
-			break;
-
-			case 4: 
-				derivada_y = FuncaoAtivacao.derivadaSigmoideHeitor(camadaSaida.getNeuronio(i).getPotencial());
-				y = FuncaoAtivacao.sigmoideHeitor(camadaSaida.getNeuronio(i).getPotencial()); 
-			break;
-
-			
-
+				case 4:
+					derivada_y = FuncaoAtivacao.derivadaSigmoideHeitor(camadaSaida.getNeuronio(i).getPotencial());
+					y = FuncaoAtivacao.sigmoideHeitor(camadaSaida.getNeuronio(i).getPotencial());
+				break;
+			}
+			gradiente_camada_saida[i] = erro[i]*derivada_y;
+			potencialAtivacao[i] = y;
 		}
-		gradiente_camada_saida[i] = erro[i]*derivada_y;
-		potencialAtivacao[i] = y;
-	}
 
-		ArrayList<double[]> gradientes_por_camada= new ArrayList<double []>();
-		gradientes_por_camada.add((this.quantidadeCamadas -1), gradiente_camada_saida);
+		ArrayList<double[]> gradientes_por_camada= new ArrayList<double []>(this.quantidadeCamadas - 1);
+		for (int i = 0; i < this.quantidadeCamadas - 1; i++) {
+			gradientes_por_camada.add(new double[1]);
+		}
+		gradientes_por_camada.set((this.quantidadeCamadas - 2), gradiente_camada_saida);
 		//calculo dos pesos da camada de saida
 
 		for(int i = 0; i < camadas.get(this.quantidadeCamadas - 2).getTamanhoCamada(); i++)
@@ -139,8 +138,6 @@ public class Rede {
 				malhaPesos[this.quantidadeCamadas -2].setPeso(j, i,
 						(peso + n*gradiente_camada_saida[j]*potencialAtivacao[j]));
 			}
-
-				
 		}
 
 
@@ -157,8 +154,8 @@ public class Rede {
 				double sum = 0;
 
 				for(int k = (i+2 == (this.quantidadeCamadas)? 0: 1); k< camadas.get(i+1).getTamanhoCamada(); k++){
-					
-					sum += gradientes_por_camada.get(i+1)[k]*
+
+					sum += gradientes_por_camada.get(i)[k]*
 						  malhaPesos[i].getPeso(k, j);
 				}
 
@@ -167,23 +164,23 @@ public class Rede {
 										camadas.get(i).getNeuronio(j).getFuncaoAtivacao(),
 										camadas.get(i).getNeuronio(j).getPotencial())[1];
 
-				gradiente_camada_oculta[j] = funcao_derivada_ativacao*sum;
+				gradiente_camada_oculta[j - 1] = funcao_derivada_ativacao*sum;
 
 
 			}
 
-			gradientes_por_camada.add(i, gradiente_camada_oculta);
-			
+			gradientes_por_camada.set(i - 1, gradiente_camada_oculta);
+
 
 			//pesos
 			for(int l = 0; l< camadas.get(i - 1).getTamanhoCamada(); l++){
 				for(int m = 1; m < camadas.get(i).getTamanhoCamada(); m++){
-					peso = malhaPesos[i-1].getPeso(m, l);
-					malhaPesos[i-1].setPeso(m,l,
-											peso + n*gradientes_por_camada.get(i)[m]*
+					peso = malhaPesos[i-1].getPeso(m - 1, l);
+					malhaPesos[i-1].setPeso(m - 1, l,
+											peso + n*gradientes_por_camada.get(i-1)[m - 1]*
 											(funcao(camadas.get(i-1).getNeuronio(l).getFuncaoAtivacao(),
 												   camadas.get(i-1).getNeuronio(l).getPotencial())
-											)[1]); 
+											)[1]);
 
 				}
 			}
@@ -196,32 +193,32 @@ public class Rede {
 		double funcao_e_derivada [] = new double[2];
 		switch(index){
 
-			case 0: 
+			case 0:
 				funcao_e_derivada [0] = FuncaoAtivacao.derivadaDegrau(potencial);
 				funcao_e_derivada [1] = FuncaoAtivacao.degrau(potencial);
 			break;
 
-			case 1: 
+			case 1:
 				funcao_e_derivada [0] = FuncaoAtivacao.derivadaLinear(potencial);
 				funcao_e_derivada [1] = FuncaoAtivacao.linear(potencial);
 			break;
 
-			case 2: 
+			case 2:
 				funcao_e_derivada [0] = FuncaoAtivacao.derivadaSigmoide(potencial);
 				funcao_e_derivada [1] = FuncaoAtivacao.sigmoide(potencial);
 			break;
 
-			case 3: 
+			case 3:
 				funcao_e_derivada [0] = FuncaoAtivacao.derivadaTangenteHiperbolica(potencial);
 				funcao_e_derivada [1] = FuncaoAtivacao.tangenteHiperbolica(potencial);
 			break;
 
-			case 4: 
+			case 4:
 				funcao_e_derivada [0] = FuncaoAtivacao.derivadaSigmoideHeitor(potencial);
-				funcao_e_derivada [1] = FuncaoAtivacao.sigmoideHeitor(potencial); 
+				funcao_e_derivada [1] = FuncaoAtivacao.sigmoideHeitor(potencial);
 			break;
 
-			
+
 
 		}
 
@@ -229,73 +226,66 @@ public class Rede {
 
 	}
 
-
-
-	public void treinamento(ConjuntoDados conjuntoTreinamento,
-	 						ConjuntoDados conjuntoValidacao,
-							int epoca,
-							double erro){
-		/* Treinamento */
+	/* Treinamento */
+	public void treinamento(int epoca, double erro){
 		Escrita arquivo = new Escrita();
 		int count_epoca = 0; int count_dados = 0;
 		double erro_med_quadrado_treinamento = 0;
 		double erro_quadratico_treinamento = 0;
 		double erro_treinamento = 0;
-		
 
-		while((count_epoca > epoca) || (erro_med_quadrado_treinamento < erro)){
 
+		do{
+			System.out.println("Epoch: " + count_epoca);
 			while(count_dados < conjuntoTreinamento.getTamanhoDados()){
-				Amostra amostra = conjuntoTreinameto.proximaAmostra();
-				double[] erro_treinamento_vetor = new double[conjuntoTreinameto.getTamanhoDados()];
-				double []saida_propagacao = propagacao(amostra);
+				Amostra amostra = conjuntoTreinamento.proximaAmostra();
+				double [] erro_treinamento_vetor = new double[camadaSaida.getTamanhoCamada()];
+				double [] saida_propagacao = propagacao(amostra);
 				double [] saidas = getSaidas(amostra, amostra.getTamanhoAmostra());
 
-				for(int i = 0; i<saida_propagacao.length; i++){
-					erro_treinamento = saidas[i]- saida_propagacao[i];
+				for(int i = 0; i < saida_propagacao.length; i++){
+					erro_treinamento = saidas[i] - saida_propagacao[i];
 					erro_treinamento_vetor[i] = erro_treinamento;
-					erro_quadratico_treinamento += Math.pow(erro, 2);
+					erro_quadratico_treinamento += Math.pow(erro_treinamento, 2);
 				}
 
-				retroPropagacao(erro_treinamento_vetor, 1);
+				retroPropagacao(erro_treinamento_vetor, 0.005);
 
-			   count_dados++;         
+			   count_dados++;
 			}
+			conjuntoTreinamento.resetarContador();
 
-			Amostra amostra_validacao = conjuntoValidacao.proximaAmostra();
 			int count_dados_validacao = 0;
 			double erro_med_quadrado_validacao = 0;
 			double erro_quadratico_validacao = 0;
 
 			while(count_dados_validacao < conjuntoValidacao.getTamanhoDados()){
+				Amostra amostra_validacao = conjuntoValidacao.proximaAmostra();
 				double [] resultado_validacao = propagacao(amostra_validacao);
 				double [] saidas = getSaidas(amostra_validacao, amostra_validacao.getTamanhoAmostra());
-				for(int i = 0; i<resultado_validacao.length; i++){
-						erro_quadratico_validacao += Math.pow(saidas[i] - resultado_validacao[i], 2);
+				for(int i = 0; i < resultado_validacao.length; i++){
+					erro_quadratico_validacao += Math.pow(saidas[i] - resultado_validacao[i], 2);
 				}
 				count_dados_validacao++;
 			}
-
-			erro_med_quadrado_validacao = erro_quadratico_validacao/count_dados_validacao;
-			erro_med_quadrado_treinamento = erro_quadratico_treinamento/count_dados;
-
-			
+			conjuntoValidacao.resetarContador();
+			erro_med_quadrado_validacao = erro_quadratico_validacao/conjuntoValidacao.getTamanhoDados();
+			erro_med_quadrado_treinamento = erro_quadratico_treinamento/conjuntoTreinamento.getTamanhoDados();
 
 			arquivo.escrever_erro("Erro_treinamento.erro", erro_med_quadrado_treinamento, 1);
 			arquivo.escrever_erro("Erro_validacao.erro", erro_med_quadrado_validacao, 1);
 
-			
 			count_dados = 0;
 			count_dados_validacao = 0;
 			count_epoca++;
-		}
+		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento > erro));
 
 	}
 
-	double [] getSaidas(Amostra amostra, double tamanhoAmostra){
+	double [] getSaidas(Amostra amostra, int tamanhoAmostra){
 		int index = camadaEntrada.getTamanhoCamada();
 		int size = index;
-		double [] saidas = new double[size];
+		double [] saidas = new double[tamanhoAmostra - size];
 		for(int i = 0; i < saidas.length; i++){
 			saidas[i] = amostra.getEntrada(index);
 			index++;

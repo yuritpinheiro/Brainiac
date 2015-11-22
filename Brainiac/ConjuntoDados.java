@@ -32,8 +32,10 @@ public class ConjuntoDados{
 				linha = bufferLeitura.readLine();
 				dados = linha.split("\t");
 				amostra = new Amostra(quantidadeEntradas);
-				for (int i = 0; i < quantidadeEntradas; i++){
-					amostra.setEntrada(i, Double.valueOf(dados[i]));
+				int i = 0;
+				for (String dado : dados){
+					amostra.setEntrada(i, Double.valueOf(dado));
+					i++;
 				}
 				amostras.add(amostra);
 			}
@@ -41,7 +43,7 @@ public class ConjuntoDados{
 			bufferLeitura.close();
 			leitor.close();
 		} catch (Exception e){
-			System.out.println(e.getMessage());
+			System.out.println("Erro Conjunto: " + e.getMessage());
 		}
 	}
 
