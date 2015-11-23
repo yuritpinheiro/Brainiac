@@ -262,13 +262,17 @@ public class Rede {
 			erro_med_quadrado_validacao = erro_quadratico_validacao/conjuntoValidacao.getTamanhoDados();
 			erro_med_quadrado_treinamento = erro_quadratico_treinamento/conjuntoTreinamento.getTamanhoDados();
 
-			arquivo.escrever_erro("Erro_treinamento.erro", erro_med_quadrado_treinamento, 1);
-			arquivo.escrever_erro("Erro_validacao.erro", erro_med_quadrado_validacao, 1);
+			erro_med_quadrado_treinamento_vetor[epoca] = erro_med_quadrado_treinamento;
+			erro_med_quadrado_validacao_vetor[epoca] = erro_med_quadrado_validacao;
+
 
 			count_dados = 0;
 			count_dados_validacao = 0;
 			count_epoca++;
 		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento > erro));
+
+		arquivo.escrever_erro("Erro_treinamento.erro", erro_med_quadrado_treinamento_vetor, (count_epoca+1);
+		arquivo.escrever_erro("Erro_validacao.erro", erro_med_quadrado_validacao_vetor, (count_epoca+1);
 	}
 
 	public double [] getSaidas(Amostra amostra, int tamanhoAmostra){
