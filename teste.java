@@ -5,23 +5,27 @@ public class teste {
 	static Random rand = new Random();
 	
 		
-	static double[] conjunto_entrada = new double[15];
-	static double[] conjunto_validacao = new double[5];
+
 	static public double elemento = 0;
 	static public double passo_entrada = 0.375; 
 	static public double passo_validacao= 0.5;
-	static int size_entrada = 15;
-	static int size_validacao = 5;
+	static public double rangeMax = 15.0;
+	static double[] conjunto_entrada = new double[(int)(rangeMax/passo_entrada) + 1];
+	static double[] conjunto_validacao = new double[(int)(rangeMax/passo_validacao) + 1] ;
+	static int size_entrada = 0;
+	static int size_validacao = 0;
 	static int size_total = 20;
 
 	public static void main(String[] args) {
 		
 		Escrita escrita = new Escrita ();
 		
-		double[] y = new double[15];
-		double[] z = new double[15];		
+				
 		
-		gerar_conjunto_entrada();
+		size_entrada = gerar_conjunto_entrada();
+
+		double[] y = new double[size_entrada];
+		double[] z = new double[size_entrada];
 
 		//Primeira Funcao
 		for(int i = 0; i < size_entrada; i++){
@@ -39,7 +43,7 @@ public class teste {
 		escrita.escrever("treinamento_funcao_dois", conjunto_entrada, z, size_entrada);
 		
 		//validacao um 
-		gerar_conjunto_validacao();
+		size_validacao = gerar_conjunto_validacao();
 
 		for(int i = 0; i < size_validacao; i++)
 			y[i] = 0.4 + 0.1*Math.exp(-5.0*conjunto_validacao[i]) - 0.5*Math.exp(-1.0*conjunto_validacao[i]);		
@@ -53,21 +57,24 @@ public class teste {
 			
 	}
 
-	public static void gerar_conjunto_entrada(){
-		for(int i = 0; i < size_entrada; i++){
-
-			conjunto_entrada[i] = elemento;
-			elemento = (elemento + passo_entrada)%16;
-			
+	public static int gerar_conjunto_entrada(){
+		int count_passos = 0;
+		while(elemento <= 15){
+			conjunto_entrada[count_passos] = elemento;
+			elemento += passo_entrada;
+			count_passos++;
 		}
+		return count_passos;
 	}
 
-	public static void gerar_conjunto_validacao(){
-		for(int i = 0; i < size_validacao; i++){
-			conjunto_validacao[i] = elemento;
-			elemento = (elemento + (new BigDecimal(passo_validacao).setScale(2, 1).doubleValue())%16);
-			
+	public static int gerar_conjunto_validacao(){
+		int count_passos = 0;
+		while(elemento <= 15){
+			conjunto_validacao[count_passos] = elemento;
+			elemento += passo_validacao;
+			count_passos++;
 		}
+		return count_passos;
 	}
 	
 	public static  boolean ta_na_lista(double [] vetor, double elemento){
