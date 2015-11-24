@@ -1,7 +1,5 @@
 package Brainiac;
 
-import java.util.ArrayList;
-
 public class MalhaPesos {
 	private int tamanhoCamadaSeguinte;
 	private int tamanhoCamadaAnterior;

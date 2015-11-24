@@ -2,8 +2,6 @@ package Brainiac;
 
 import java.util.ArrayList;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 

@@ -222,7 +222,9 @@ public class Rede {
 		double erro_med_quadrado_treinamento = 0;
 		double erro_quadratico_treinamento = 0;
 		double erro_treinamento = 0;
-
+		
+		double erro_med_quadrado_treinamento_vetor[] = new double[epoca];
+		double erro_med_quadrado_validacao_vetor[] = new double[epoca];
 		do{
 			System.out.println("Epoch: " + count_epoca);
 			erro_med_quadrado_treinamento = 0;
@@ -262,8 +264,8 @@ public class Rede {
 			erro_med_quadrado_validacao = erro_quadratico_validacao/conjuntoValidacao.getTamanhoDados();
 			erro_med_quadrado_treinamento = erro_quadratico_treinamento/conjuntoTreinamento.getTamanhoDados();
 
-			erro_med_quadrado_treinamento_vetor[epoca] = erro_med_quadrado_treinamento;
-			erro_med_quadrado_validacao_vetor[epoca] = erro_med_quadrado_validacao;
+			erro_med_quadrado_treinamento_vetor[count_epoca] = erro_med_quadrado_treinamento;
+			erro_med_quadrado_validacao_vetor[count_epoca] = erro_med_quadrado_validacao;
 
 
 			count_dados = 0;
@@ -271,8 +273,8 @@ public class Rede {
 			count_epoca++;
 		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento > erro));
 
-		arquivo.escrever_erro("Erro_treinamento.erro", erro_med_quadrado_treinamento_vetor, (count_epoca+1);
-		arquivo.escrever_erro("Erro_validacao.erro", erro_med_quadrado_validacao_vetor, (count_epoca+1);
+		arquivo.escrever_erro("Erro_treinamento.erro", erro_med_quadrado_treinamento_vetor, (count_epoca+1));
+		arquivo.escrever_erro("Erro_validacao.erro", erro_med_quadrado_validacao_vetor, (count_epoca+1));
 	}
 
 	public double [] getSaidas(Amostra amostra, int tamanhoAmostra){
