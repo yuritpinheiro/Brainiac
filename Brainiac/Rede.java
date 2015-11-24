@@ -16,8 +16,7 @@ public class Rede {
 	private MalhaPesos malhaPesos[];
 	private ConjuntoDados conjuntoTreinamento;
 	private ConjuntoDados conjuntoValidacao;
-
-	double erro = 0;
+	private String treino;
 
 	public Rede(){
 		/* Construtor vazio */
@@ -27,7 +26,8 @@ public class Rede {
 				int neuronioPorCamada[],
 				int funcaoAtivacaoCamada[],
 				String conjuntoTreinamento,
-				String conjuntoValidacao){
+				String conjuntoValidacao,
+				String treino){
 		this.quantidadeCamadas = quantidadeCamadas;
 		this.camadaEntrada = new Camada(neuronioPorCamada[0] + 1, Camada.ENTRADA, funcaoAtivacaoCamada[0]);
 		this.camadaSaida = new Camada(neuronioPorCamada[this.quantidadeCamadas - 1], Camada.SAIDA, funcaoAtivacaoCamada[this.quantidadeCamadas - 1]);
@@ -48,10 +48,11 @@ public class Rede {
 		this.conjuntoTreinamento.carregarDados(conjuntoTreinamento, camadaEntrada.getTamanhoCamada() + camadaSaida.getTamanhoCamada());
 		this.conjuntoValidacao = new ConjuntoDados();
 		this.conjuntoValidacao.carregarDados(conjuntoValidacao, camadaEntrada.getTamanhoCamada() + camadaSaida.getTamanhoCamada());
+		this.treino = treino;
 	}
 
 	/* Propagação */
-	public double[] propagacao(Amostra dados){
+	public double [] propagacao(Amostra dados){
 		double resultado[] = new double[camadas.get(this.quantidadeCamadas - 1).getTamanhoCamada()];
 
 		for (int i = 0; i < camadaEntrada.getTamanhoCamada(); i++) {
@@ -216,17 +217,16 @@ public class Rede {
 	}
 
 	/* Treinamento */
-	public void treinamento(int epoca, double erro){
+	public void treinamento(int epoca, double erro, double n){
 		Escrita arquivo = new Escrita();
 		int count_epoca = 0; int count_dados = 0;
 		double erro_med_quadrado_treinamento = 0;
 		double erro_quadratico_treinamento = 0;
 		double erro_treinamento = 0;
-		
+
 		double erro_med_quadrado_treinamento_vetor[] = new double[epoca];
 		double erro_med_quadrado_validacao_vetor[] = new double[epoca];
 		do{
-			System.out.println("Epoch: " + count_epoca);
 			erro_med_quadrado_treinamento = 0;
 			erro_quadratico_treinamento = 0;
 			while(count_dados < conjuntoTreinamento.getTamanhoDados()){
@@ -241,7 +241,7 @@ public class Rede {
 					erro_quadratico_treinamento += Math.pow(erro_treinamento, 2);
 				}
 
-				retroPropagacao(erro_treinamento_vetor, 0.005);
+				retroPropagacao(erro_treinamento_vetor, n);
 
 				count_dados++;
 			}
@@ -261,20 +261,23 @@ public class Rede {
 				count_dados_validacao++;
 			}
 			conjuntoValidacao.resetarContador();
+
+			conjuntoTreinamento.embaralhar();
+			conjuntoValidacao.embaralhar();
+
 			erro_med_quadrado_validacao = erro_quadratico_validacao/conjuntoValidacao.getTamanhoDados();
 			erro_med_quadrado_treinamento = erro_quadratico_treinamento/conjuntoTreinamento.getTamanhoDados();
 
 			erro_med_quadrado_treinamento_vetor[count_epoca] = erro_med_quadrado_treinamento;
 			erro_med_quadrado_validacao_vetor[count_epoca] = erro_med_quadrado_validacao;
 
-
 			count_dados = 0;
 			count_dados_validacao = 0;
 			count_epoca++;
 		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento > erro));
 
-		arquivo.escrever_erro("Erro_treinamento.erro", erro_med_quadrado_treinamento_vetor, (count_epoca+1));
-		arquivo.escrever_erro("Erro_validacao.erro", erro_med_quadrado_validacao_vetor, (count_epoca+1));
+		arquivo.escrever_erro("Treinamentos/" + treino + "_erro_treino.erro", erro_med_quadrado_treinamento_vetor, (count_epoca));
+		arquivo.escrever_erro("Treinamentos/" + treino + "_erro_val.erro", erro_med_quadrado_validacao_vetor, (count_epoca));
 	}
 
 	public double [] getSaidas(Amostra amostra, int tamanhoAmostra){
@@ -291,10 +294,8 @@ public class Rede {
 
 	public void salvarRede(String destino){
 		try{
-			FileWriter escritor = new FileWriter(destino + ".rede");
+			FileWriter escritor = new FileWriter("Redes/" + destino + ".rede");
 			PrintWriter saida = new PrintWriter(escritor, true);
-
-			System.out.println("Abertura terminado");
 
 			saida.println(quantidadeCamadas);
 			String neuronioPorCamada = new String();
@@ -321,7 +322,7 @@ public class Rede {
 		}
 	}
 
-	public void carregarRede(String rede){
+	public void carregarRedePesos(String rede){
 		try{
 			File fonte = new File(rede);
 			if (!fonte.exists() || !fonte.isFile()){
@@ -382,6 +383,60 @@ public class Rede {
 		}
 	}
 
+	public void carregarRede(String rede){
+		try{
+			File fonte = new File(rede);
+			if (!fonte.exists() || !fonte.isFile()){
+				return;
+			}
+
+			FileReader leitor = new FileReader(fonte);
+			BufferedReader bufferLeitura = new BufferedReader(leitor);
+
+			String linha = null, dados[];
+
+			linha = bufferLeitura.readLine();
+			dados = linha.split("\t");
+			this.quantidadeCamadas = Integer.valueOf(dados[0]);
+
+			linha = bufferLeitura.readLine();
+			dados = linha.split("\t");
+			int neuronioPorCamada[] = new int[quantidadeCamadas];
+			for (int i = 0; i < quantidadeCamadas; i++) {
+				neuronioPorCamada[i] = Integer.valueOf(dados[i]);
+			}
+
+			linha = bufferLeitura.readLine();
+			dados = linha.split("\t");
+			int funcaoAtivacaoCamada[] = new int[quantidadeCamadas];
+			for (int i = 0; i < quantidadeCamadas; i++) {
+				funcaoAtivacaoCamada[i] = Integer.valueOf(dados[i]);
+			}
+
+			this.camadaEntrada = new Camada(neuronioPorCamada[0] + 1, Camada.ENTRADA, funcaoAtivacaoCamada[0]);
+			this.camadaSaida = new Camada(neuronioPorCamada[this.quantidadeCamadas - 1], Camada.SAIDA, funcaoAtivacaoCamada[this.quantidadeCamadas - 1]);
+			this.camadas = new ArrayList<Camada>();
+			this.camadas.add(this.camadaEntrada);
+			Camada camadaOculta;
+			for (int i = 1; i < quantidadeCamadas - 1; i++) {
+				camadaOculta = new Camada(neuronioPorCamada[i] + 1, Camada.OCULTA, funcaoAtivacaoCamada[i]);
+				this.camadas.add(camadaOculta);
+			}
+			this.camadas.add(this.camadaSaida);
+
+			malhaPesos = new MalhaPesos[quantidadeCamadas - 1];
+			for (int i = 0; i < malhaPesos.length; i++) {
+				this.malhaPesos[i] = new MalhaPesos(neuronioPorCamada[i + 1], neuronioPorCamada[i] + 1);
+				this.malhaPesos[i].inicializar();
+			}
+
+			bufferLeitura.close();
+			leitor.close();
+		} catch (Exception e){
+			System.out.println("Erro no carregamento da rede: " + e.getMessage());
+		}
+	}
+
 	public void print(){
 		System.out.println("Quantidade de camadas: " + quantidadeCamadas);
 		for (int i = 0; i < quantidadeCamadas; i++) {
@@ -392,6 +447,19 @@ public class Rede {
 			System.out.println("Pesos da camada " + i + " para camada " + (i+1));
 			this.malhaPesos[i].print();
 		}
+	}
+
+	public void inicializarPesos(){
+		for (int i = 0; i < malhaPesos.length; i++) {
+			this.malhaPesos[i].inicializar();
+		}
+	}
+
+	public void carregarConjuntos(String conjuntoTreinamento, String conjuntoValidacao){
+		this.conjuntoTreinamento = new ConjuntoDados();
+		this.conjuntoTreinamento.carregarDados(conjuntoTreinamento, this.camadaEntrada.getTamanhoCamada() + this.camadaSaida.getTamanhoCamada());
+		this.conjuntoValidacao = new ConjuntoDados();
+		this.conjuntoValidacao.carregarDados(conjuntoValidacao, camadaEntrada.getTamanhoCamada() + camadaSaida.getTamanhoCamada());
 	}
 
 	/* Gets e Sets */
@@ -433,5 +501,13 @@ public class Rede {
 
 	public void setCamada(Camada camada,int i){
 		this.camadas.set(i, camada);
+	}
+
+	public String getTreino(){
+		return this.treino;
+	}
+
+	public String setTreino(String treino){
+		return this.treino = treino;
 	}
 }

@@ -1,6 +1,7 @@
 package Brainiac;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -60,5 +61,9 @@ public class ConjuntoDados{
 	public int getTamanhoDados(){
 
 		return this.amostras.size();
+	}
+
+	public void embaralhar(){
+		Collections.shuffle(amostras);
 	}
 }

@@ -16,11 +16,11 @@ public class MalhaPesos {
 	}
 
 	public double getPeso(int neuronioSeguinte, int neuronioAnterior){
-		return pesos[neuronioSeguinte * tamanhoCamadaSeguinte + neuronioAnterior];
+		return pesos[neuronioSeguinte * tamanhoCamadaAnterior + neuronioAnterior];
 	}
 
 	public void setPeso(int neuronioSeguinte, int neuronioAnterior, double peso){
-		pesos[neuronioSeguinte * tamanhoCamadaSeguinte + neuronioAnterior] = peso;
+		pesos[neuronioSeguinte * tamanhoCamadaAnterior + neuronioAnterior] = peso;
 	}
 
 	public void setPesos(double pesos[]){
@@ -36,7 +36,7 @@ public class MalhaPesos {
 	public void print(){
 		for (int i = 0; i < tamanhoCamadaSeguinte; i++) {
 			for (int j = 0; j < tamanhoCamadaAnterior; j++) {
-				System.out.println("\tPeso do neurônio " + j + " para o neurônio " + (i + 1) + ": " + pesos[(i * tamanhoCamadaSeguinte) + j]);
+				System.out.println("\tPeso do neurônio " + j + " para o neurônio " + (i + 1) + ": " + pesos[(i * tamanhoCamadaAnterior) + j]);
 			}
 		}
 	}
