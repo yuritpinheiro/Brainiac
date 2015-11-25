@@ -1,5 +1,10 @@
+import Brainiac.Escrita;
+
 import java.math.BigDecimal;
 import java.util.Random;
+
+
+
 public class GeradorDados {
 
 	static Random rand = new Random();
@@ -7,7 +12,7 @@ public class GeradorDados {
 
 
 	static public double elemento = 0;
-	static public double passo_entrada = 0.375;
+	static public double passo_entrada = 0.015625;
 	static public double passo_validacao= 0.5;
 	static public double rangeMax = 15.0;
 	static double[] conjunto_entrada = new double[(int)(rangeMax/passo_entrada) + 1];
@@ -39,8 +44,8 @@ public class GeradorDados {
 			z[i] = conjunto_entrada[i] * Math.exp(-2.0*(conjunto_entrada[i]));
 		}
 
-		escrita.escrever("treinamento_funcao_um", conjunto_entrada, y, size_entrada);
-		escrita.escrever("treinamento_funcao_dois", conjunto_entrada, z, size_entrada);
+		escrita.escrever_amostra("Dados/funcao_um_treino.conjunto", conjunto_entrada, y, size_entrada);
+		escrita.escrever_amostra("Dados/funcao_dois_treino.conjunto", conjunto_entrada, z, size_entrada);
 
 		//validacao um
 		size_validacao = gerar_conjunto_validacao();
@@ -52,8 +57,8 @@ public class GeradorDados {
 		for(int i = 0; i < size_validacao; i++)
 			z[i] = conjunto_validacao[i]*Math.exp(-2.0*(conjunto_validacao[i]));
 
-		escrita.escrever("validacao_funcao_um",  conjunto_validacao, y, size_validacao);
-		escrita.escrever("validacao_funcao_dois",conjunto_validacao, z, size_validacao);
+		escrita.escrever_amostra("Dados/funcao_um_val.conjunto",  conjunto_validacao, y, size_validacao);
+		escrita.escrever_amostra("Dados/funcao_dois_val.conjunto",conjunto_validacao, z, size_validacao);
 
 	}
 

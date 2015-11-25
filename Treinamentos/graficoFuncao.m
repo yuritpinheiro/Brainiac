@@ -18,7 +18,9 @@ function graficoFuncao(funcao, arq)
       y_funcao_aprox = load(strcat("funcao_um_arq_", arq, "_aprox.funcao"));
     case 2
       funcao = "dois";
-      y_funcao_real = x * exp(-2 * x)
+      for (i = 1:1:151)
+        y_funcao_real(i) = x(i) * exp(-2 * x(i));
+      end
       y_funcao_aprox = load(strcat("funcao_dois_arq_", arq, "_aprox.funcao"));
   end
   

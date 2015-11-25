@@ -279,7 +279,7 @@ public class Rede {
 			count_dados = 0;
 			count_dados_validacao = 0;
 			count_epoca++;
-		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento - erro_med_quadrado_validacao > 0));
+		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento > erro)/* && (erro_med_quadrado_treinamento - erro_med_quadrado_validacao > 0)*/);
 
 		arquivo.escrever_erro("Treinamentos/" + treino + "_erro_treino.erro", erro_med_quadrado_treinamento_vetor, (count_epoca));
 		arquivo.escrever_erro("Treinamentos/" + treino + "_erro_val.erro", erro_med_quadrado_validacao_vetor, (count_epoca));
