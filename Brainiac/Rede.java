@@ -221,12 +221,17 @@ public class Rede {
 		Escrita arquivo = new Escrita();
 		int count_epoca = 0; int count_dados = 0;
 		double erro_med_quadrado_treinamento = 0;
+		double erro_med_quadrado_treinamento_ant = 0;
 		double erro_quadratico_treinamento = 0;
 		double erro_treinamento = 0;
+
+		double erro_med_quadrado_validacao = 0;
+		double erro_quadratico_validacao = 0;
 
 		double erro_med_quadrado_treinamento_vetor[] = new double[epoca];
 		double erro_med_quadrado_validacao_vetor[] = new double[epoca];
 		do{
+			erro_med_quadrado_treinamento_ant = erro_med_quadrado_treinamento;
 			erro_med_quadrado_treinamento = 0;
 			erro_quadratico_treinamento = 0;
 			while(count_dados < conjuntoTreinamento.getTamanhoDados()){
@@ -248,8 +253,8 @@ public class Rede {
 			conjuntoTreinamento.resetarContador();
 
 			int count_dados_validacao = 0;
-			double erro_med_quadrado_validacao = 0;
-			double erro_quadratico_validacao = 0;
+			erro_med_quadrado_validacao = 0;
+			erro_quadratico_validacao = 0;
 
 			while(count_dados_validacao < conjuntoValidacao.getTamanhoDados()){
 				Amostra amostra_validacao = conjuntoValidacao.proximaAmostra();
@@ -274,7 +279,7 @@ public class Rede {
 			count_dados = 0;
 			count_dados_validacao = 0;
 			count_epoca++;
-		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento > erro));
+		} while((count_epoca < epoca) && (erro_med_quadrado_treinamento - erro_med_quadrado_validacao > 0));
 
 		arquivo.escrever_erro("Treinamentos/" + treino + "_erro_treino.erro", erro_med_quadrado_treinamento_vetor, (count_epoca));
 		arquivo.escrever_erro("Treinamentos/" + treino + "_erro_val.erro", erro_med_quadrado_validacao_vetor, (count_epoca));
