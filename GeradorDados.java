@@ -3,17 +3,13 @@ import Brainiac.Escrita;
 import java.math.BigDecimal;
 import java.util.Random;
 
-
-
 public class GeradorDados {
 
 	static Random rand = new Random();
 
-
-
 	static public double elemento = 0;
 	static public double passo_entrada = 0.015625;
-	static public double passo_validacao= 0.5;
+	static public double passo_validacao = 0.25;
 	static public double rangeMax = 15.0;
 	static double[] conjunto_entrada = new double[(int)(rangeMax/passo_entrada) + 1];
 	static double[] conjunto_validacao = new double[(int)(rangeMax/passo_validacao) + 1] ;
@@ -25,9 +21,7 @@ public class GeradorDados {
 
 		Escrita escrita = new Escrita ();
 
-
-
-		size_entrada = gerar_conjunto_entrada();
+		size_entrada = gerar_conjunto_entrada_dois();
 
 		double[] y = new double[size_entrada];
 		double[] z = new double[size_entrada];
@@ -48,7 +42,7 @@ public class GeradorDados {
 		escrita.escrever_amostra("Dados/funcao_dois_treino.conjunto", conjunto_entrada, z, size_entrada);
 
 		//validacao um
-		size_validacao = gerar_conjunto_validacao();
+		size_validacao = gerar_conjunto_validacao_dois();
 
 		for(int i = 0; i < size_validacao; i++)
 			y[i] = 0.4 + 0.1*Math.exp(-5.0*conjunto_validacao[i]) - 0.5*Math.exp(-1.0*conjunto_validacao[i]);
@@ -72,11 +66,42 @@ public class GeradorDados {
 		return count_passos;
 	}
 
+	public static int gerar_conjunto_entrada_dois(){
+		int count_passos = 0;
+		while(elemento <= 5){
+			conjunto_entrada[count_passos] = elemento;
+			elemento += passo_entrada;
+			count_passos++;
+		}
+
+		while(elemento <= 15){
+			conjunto_entrada[count_passos] = elemento;
+			elemento += passo_entrada * 8;
+			count_passos++;
+		}
+		return count_passos;
+	}
+
 	public static int gerar_conjunto_validacao(){
 		int count_passos = 0;
 		while(elemento <= 15){
 			conjunto_validacao[count_passos] = elemento;
 			elemento += passo_validacao;
+			count_passos++;
+		}
+		return count_passos;
+	}
+
+	public static int gerar_conjunto_validacao_dois(){
+		int count_passos = 0;
+		while(elemento <= 5){
+			conjunto_validacao[count_passos] = elemento;
+			elemento += passo_validacao;
+			count_passos++;
+		}
+		while(elemento <= 15){
+			conjunto_validacao[count_passos] = elemento;
+			elemento += passo_validacao * 2;
 			count_passos++;
 		}
 		return count_passos;
