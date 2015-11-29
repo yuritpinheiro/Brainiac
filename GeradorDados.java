@@ -8,8 +8,8 @@ public class GeradorDados {
 	static Random rand = new Random();
 
 	static public double elemento = 0;
-	static public double passo_entrada = 0.015625;
-	static public double passo_validacao = 0.25;
+	static public double passo_entrada = 0.375;
+	static public double passo_validacao = 0.875;
 	static public double rangeMax = 15.0;
 	static double[] conjunto_entrada = new double[(int)(rangeMax/passo_entrada) + 1];
 	static double[] conjunto_validacao = new double[(int)(rangeMax/passo_validacao) + 1] ;
